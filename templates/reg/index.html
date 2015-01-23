@@ -1,0 +1,32 @@
+{% extends "reg/base_reg.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="col-sm-5" id="login">
+        <h1>Zaloguj się</h1>
+        <form name="login_form" method="post" action="{% url 'reg.views.login_my' %}">
+            {% csrf_token %}
+           {% bootstrap_form login_form %}
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary" name="login" value="Zaloguj" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-sm-5 pull-right" id="registration">
+    <h1>Zarejestruj się</h1>
+        <form  name="register_form" method="post" action="{% url 'reg.views.register_my' %}">
+            {% csrf_token %}
+           {% bootstrap_form register_form %}
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary" name="register" value="Zarejestruj" />
+                </div>
+            </div>
+        </form>
+        <a href="{% url 'reg.views.org' %}" role="button" style="margin-top:20px" class="btn btn-warning btn-large center">Jestem organizacją fonograficzną.</a>
+    </div>
+
+{% endblock %}

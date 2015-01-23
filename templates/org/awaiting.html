@@ -1,0 +1,33 @@
+{% extends "org/base_org.html" %}
+{% load bootstrap3 %}
+
+{% block menu_buttons %}
+     <a href="{% url 'org.views.new_application' %}" class="btn btn-default" role="button">
+         <span class="glyphicon glyphicon-plus"></span><br> Nowe zgłoszenie</a>
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-offset-3" style="margin-top:20px;">
+        <ul id="menu" class="nav nav-pills col-md-offset-0"  >
+            <li class="col-md-5 {{ active_a }}">{% block menu-awating %}<a href="{% url 'org.views.awaiting' %}">Oczekujące na rozpatrzenie
+                <span class="badge">{{ count_a }}</span></a>{% endblock %}</li>
+            <li class="col-md-3 {{ active_s }}" >{% block menu-settled %}<a href="{% url 'org.views.settled' %}">Rozpatrzone
+                <span class="badge">{{ count_s }}</span></a>{% endblock %}</li>
+        </ul>
+    </div>
+
+ <div class="col-md-offset-2 col-md-8" style="margin-top:30px;">
+<div class="list-group">
+    {% for app in applications %}
+        <a href="{% url 'org.views.detail' app.id %}" class="list-group-item">
+            <strong class="list-group-item-heading">{{ app.title }}</strong>
+            <span class="pull-right">{{ app.date_create }}</span>
+            <p class="list-group-item-text">{{ app.description|truncatechars:90 }}</p>
+        </a>
+    {% endfor %}
+
+</div>
+</div>
+{#% bootstrap_icon "star" %#}
+
+{% endblock %}

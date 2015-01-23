@@ -1,0 +1,18 @@
+    <div id="plwrap">
+        <div class="plHead">
+            <div class="plHeadNum">Ścieżka</div>
+            <div class="plHeadTitle">Tytuł</div>
+            <div class="plHeadLength">Długość</div>
+        </div>
+        <ul id="plUL">
+            {% for track in tracks %}
+                <li>
+                    <div class="plItem">
+                        <div class="plNum">{{ forloop.counter }}</div>
+                        <div class="plTitle">{{ track.metadata.title }}</div>
+                        <div class="plLength">{{ track.metadata.length }}</div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>

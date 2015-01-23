@@ -1,0 +1,16 @@
+{% extends "player/base_player.html" %}
+{% load bootstrap3 %}
+{% block menu_buttons %}
+         <button type="submit" class="btn btn-success" role="button" name="save" form="edit">
+            <span class="glyphicon glyphicon-save"></span><br>Zapisz</button>
+        <a href="{% url 'player.views.files' %}" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-arrow-left"></span><br>Powrót</a>
+{% endblock %}
+{% block content %}
+    <div class="row col-md-4 col-md-offset-4" style="margin-top:20px">
+    <form name="edit" id="edit" method="post" action="{% url 'player.views.detail' m_id %}" class="form">
+           {% csrf_token %}
+           {% bootstrap_form form %}
+    </form>
+    </div>
+{% endblock %}

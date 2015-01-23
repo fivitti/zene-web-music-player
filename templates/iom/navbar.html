@@ -1,0 +1,31 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'reg.views.index' %}">
+{#          <span class="glyphicon glyphicon-music"></span>#}
+            <strong>Zene</strong></a>
+
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">
+            {% if user.is_authenticated %}
+                Zalogowany: {{ user }}
+            {% else %}
+                Nie zalogowany
+            {% endif %}
+        </a></li>
+        <li><a href="{% url 'iom.views.logout_view' %}">
+            {% if user.is_authenticated %}
+                Wyloguj
+            {% else %}
+
+            {% endif %}
+        </a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

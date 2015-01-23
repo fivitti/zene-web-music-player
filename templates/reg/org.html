@@ -1,0 +1,18 @@
+{% extends "reg/base_reg.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div id="registration" class="col-sm-6 col-md-offset-2  ">
+        <h2>Formularz rejestracji organizacji</h2>
+        <form name="registration" method="post" action="{% url 'reg.views.org' %}">
+           {% csrf_token %}
+           {% bootstrap_form form %}
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary pull-right" value="Zarejestruj" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

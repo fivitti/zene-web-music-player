@@ -1,0 +1,57 @@
+{% extends "player/base_player.html" %}
+{% load bootstrap3 %}
+
+{% block menu_buttons_left %}
+         <a href="{% url 'player.views.add_file' %}" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-plus"></span><br>Dodaj plik</a>
+{% endblock %}
+{% block menu_buttons %}
+         <button type="submit" class="btn btn-default" role="button" name="delete" form="form_files">
+            <span class="glyphicon glyphicon-trash"></span><br>Usuń zaznaczone</button>
+        <button type=submit class="btn btn-default" role="button" name="playlist" form="form_files">
+            <span class="glyphicon glyphicon-list"></span><br>Twórz playlistę</button>
+{% endblock %}
+{% block menu_buttons_right %}
+        <a href="{% url 'player.views.player' %}" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-arrow-left"></span><br>Powrót</a>
+{% endblock %}
+{% block content %}
+    	<div class="row">
+        <div class="" style="width:60%; margin:0 auto; text-align: center">
+                <div class="alert" role="alert" style="color:red">
+                    {{ errors }}
+                </div>
+            <h3 class="text-center">Pliki</h3>
+            <div class="well">
+        		<ul class="list-group checked-list-box">
+                <form method="POST" action="{% url 'player.views.files' %}" id="form_files">
+                {% csrf_token %}
+                  {% for track in tracks %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <span class="col-md-1">
+                                <input type="checkbox" name="choices" value="{{ track.id }}" />
+                            </span>
+                            <span>
+                                Plik: [{{ track.filename }}]
+                            </span>
+                            <span class="pull-right col-md-2">
+                                <a href="{% url 'player.views.detail' track.id %}">Edytuj</a>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">Tytuł: {{ track.metadata.title }}</div>
+                            <div class="col-md-4">Artysta: {{ track.metadata.artist }}</div>
+                            <div class="col-md-3">Album: {{ track.metadata.album }}</div>
+                        </div>
+                        <div class="row">
+                            <a href="{{ track.file.url }}">Słuchaj</a>
+                        </div>
+                    </li>
+                  {% endfor %}
+                </form>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{% block title %}Internetowy odtwarzacz muzyczny{% endblock %}</title>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'reg/style.css' %}" />
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+<div class="row">
+    {% block navbar %}{% include "iom/navbar.html" %}{% endblock %}
+</div>
+<div class="row" style="text-align: center">
+    {% block description %}
+        <div class="page-header" style="margin: 5px 0 10px">
+                <h1>Zene<br><small>Internetowy odtwarzacz muzyczny</small></h1>
+        </div>{% endblock %}
+</div>
+<div class="row">
+    {% block menu %}
+            <div class="span12">
+                <div class="navbar navbar-defaul" role="toolbar" style="text-align: center; width:80%; margin:0 auto">
+                    <div class="btn-group navbar-left" role="group">
+                        {% block menu_buttons_left %}{% endblock %}
+                    </div>
+                    <div class="btn-group" role="group">
+                        {% block menu_buttons %}{% endblock %}
+                    </div>
+                    <div class="btn-group navbar-right" role="group">
+                        {% block menu_buttons_right %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+    {% endblock %}
+</div>
+<div class="row">
+    {% block content %}{% endblock %}
+</div>
+<div class="row">
+    {% block footer %}{%  endblock %}
+</div>
+</body>
+</html>

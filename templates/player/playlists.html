@@ -1,0 +1,63 @@
+{% extends "player/base_player.html" %}
+{% load bootstrap3 %}
+
+{% block menu_buttons_left %}
+{% endblock %}
+{% block menu_buttons %}
+         <button type="submit" class="btn btn-default" role="button" name="delete" form="form_playlist">
+            <span class="glyphicon glyphicon-trash"></span><br>Usuń zaznaczone</button>
+        <button type=submit class="btn btn-default" role="button" name="playlist" form="form_playlist">
+            <span class="glyphicon glyphicon-play"></span><br>Odtwórz playlistę</button>
+{% endblock %}
+{% block menu_buttons_right %}
+        <a href="{% url 'player.views.player' %}" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-arrow-left"></span><br>Powrót</a>
+{% endblock %}
+{% block content %}
+    <script>
+          var toggle = function(id) {
+              var mydiv = document.getElementById(id);
+              if (mydiv.style.display === 'block' || mydiv.style.display === '')
+                mydiv.style.display = 'none';
+              else
+                mydiv.style.display = 'block'
+          }
+    </script>
+    	<div class="row">
+        <div class="" style="width:60%; margin:0 auto; text-align: center">
+                <div class="alert" role="alert" style="color:red">
+                    {{ errors }}
+                </div>
+            <h3 class="text-center">Pliki</h3>
+            <div class="well">
+        		<ul class="list-group checked-list-box">
+                <form method="POST" action="{% url 'player.views.playlists' %}" id="form_playlist">
+                {% csrf_token %}
+                  {% for playlist in playlists %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <span class="col-md-1">
+                                <input type="checkbox" name="choices" value="{{ playlist.id }}" />
+                            </span>
+                            <span>
+                                Playlista: [{{ playlist.name }}]
+                            </span>
+                            <span>
+                                <button type="button" role="link" class="btn btn-link btn-xs pull-right" onclick="toggle('items{{ playlist.id }}')">Pokaż/Ukryj</button>
+                            </span>
+                        </div>
+                        <ul class="list-group" style="width: 80%; margin: 5px auto; display: none" id="items{{ playlist.id }}">
+                            {% for track in playlist.tracks.all %}
+                                <li class="list-group-item">
+                                    <div>{{ track.metadata.title }} - {{ track.metadata.artist }}</div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                  {% endfor %}
+                </form>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
